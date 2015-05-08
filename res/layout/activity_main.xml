@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212" >
+    android:background="#FFFFFF" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#8C1132"
+            android:background="#FFFFFF"
             android:gravity="center"
             android:onClick="startCamera"
             android:paddingLeft="10dp"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#730E20"
+            android:background="#1E90FF"
             android:gravity="center"
             android:onClick="startGallery" >
 

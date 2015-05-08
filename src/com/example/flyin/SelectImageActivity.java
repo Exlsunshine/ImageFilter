@@ -5,22 +5,27 @@ import java.lang.reflect.Method;
 
 import com.yg.image.filter.ui.FilterActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class MainActivity extends Activity
+public class SelectImageActivity extends Activity
 {
 	private static final int REQUEST_GALLERY = 1;
 	private static final int REQUEST_CAMERA = 0;
@@ -43,6 +48,27 @@ public class MainActivity extends Activity
 		top_holder = (RelativeLayout) findViewById(R.id.yg_select_picture_top_holder);
 		bottom_holder = (RelativeLayout) findViewById(R.id.yg_select_picture_bottom_holder);
 		step_number = (RelativeLayout) findViewById(R.id.yg_select_picture_step_number);
+	
+		setupDialogActionBar();
+	}
+	
+	private void setupDialogActionBar()
+	{
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(0x1E, 0x90, 0xFF)));
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		getActionBar().setCustomView(R.layout.yg_select_image_actionbar);
+		
+	
+		LinearLayout back = (LinearLayout)findViewById(R.id.yg_select_image_actionbar_back);
+		back.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				SelectImageActivity.this.finish();
+			}
+		});
 	}
 
 	@Override
@@ -184,7 +210,7 @@ public class MainActivity extends Activity
 			{
 				bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), IMAGE_URI);
 
-				Intent it = new Intent(MainActivity.this, FilterActivity.class);
+				Intent it = new Intent(SelectImageActivity.this, FilterActivity.class);
 				startActivity(it);
 			} 
 			catch (Exception e) 

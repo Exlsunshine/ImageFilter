@@ -49,7 +49,7 @@ public class FilterPreviewCache
 	 * @param tag the filter's tag.
 	 * @param imageview the imageview which will show the filter result.
 	 */
-	public void applyFilterByTag(String tag, ImageView imageview)
+	synchronized public void applyFilterByTag(String tag, ImageView imageview)
 	{
 		if (filterCache.containsKey(tag))
 		{
@@ -62,7 +62,7 @@ public class FilterPreviewCache
 		else
 		{
 			IImageFilter filter = avaliableFilters.get(Integer.parseInt(tag) - 1);
-			new processImageTask(filter, target, tag, filterCache, imageview).execute();
+			new ProcessImageTask(filter, target, tag, filterCache, imageview).execute();
 		}
 	}
 	

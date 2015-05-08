@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.yg.image.filter.filters.IImageFilter;
 import com.yg.image.filter.filters.Image;
 
-public class processImageTask extends AsyncTask<Void, Void, Bitmap>
+public class ProcessImageTask extends AsyncTask<Void, Void, Bitmap>
 {
 	private IImageFilter filter;
     private Bitmap target = null;
@@ -21,9 +21,9 @@ public class processImageTask extends AsyncTask<Void, Void, Bitmap>
     private HashMap<String, String> filterCache;
     private ImageView imageview;
     
-    private static Image img = null;
+    private Image img = null;
     
-    public processImageTask(IImageFilter imageFilter, Bitmap target, 
+    public ProcessImageTask(IImageFilter imageFilter, Bitmap target, 
     		String tag, HashMap<String, String> filterCache, ImageView imageview) 
 	{
 		this.filter = imageFilter;
@@ -59,7 +59,7 @@ public class processImageTask extends AsyncTask<Void, Void, Bitmap>
     	}
 		catch(Exception e)
 		{
-			if (img != null && img.destImage.isRecycled()) 
+			if (img != null && img.destImage != null && img.destImage.isRecycled()) 
 			{
 				img.destImage.recycle();
 				img.destImage = null;
@@ -67,7 +67,7 @@ public class processImageTask extends AsyncTask<Void, Void, Bitmap>
 		}
 		finally
 		{
-			if (img != null && img.image.isRecycled()) 
+			if (img != null && img.image!= null && img.image.isRecycled()) 
 			{
 				img.image.recycle();
 				img.image = null;
