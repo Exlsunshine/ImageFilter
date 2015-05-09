@@ -1,5 +1,7 @@
 package com.yg.image.filter.ui;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
@@ -15,8 +17,24 @@ import com.example.flyin.R;
 
 public class FilterActivity extends Activity
 {
+	/**
+	 * Preview image.
+	 */
 	private ImageView imageView;
+	/**
+	 * Available filters.
+	 */
 	private FilterPreviewCache filterCache;
+	/**
+	 * Filters' sample preview image.
+	 */
+	private ArrayList<ImageView> samples;
+	/**
+	 * Previous selected filter's index.<br>
+	 * The index belongs to {@link #samples}
+	 * @see #samples
+	 */
+	private int previousSelection = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -24,22 +42,60 @@ public class FilterActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filter);
 		
-		imageView = (ImageView)findViewById(R.id.yg_filter_img);
+		setupLayouts();
+		setupDialogActionBar();
 		
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
 		opt.inSampleSize = 1;
-		filterCache = new FilterPreviewCache(BitmapFactory.decodeResource(getResources(), R.drawable.portrait, opt));
+		filterCache = new FilterPreviewCache(BitmapFactory.decodeResource(getResources(), R.drawable.portrait, opt), imageView);
 		
-		//filterCache = new FilterPreviewCache(SelectImageActivity.bitmap);
+		//filterCache = new FilterPreviewCache(SelectImageActivity.bitmap, imageView);
+	}
+	
+	private void setupLayouts()
+	{
+		imageView = (ImageView)findViewById(R.id.yg_filter_img);
 		
-		setupDialogActionBar();
+		samples = new ArrayList<ImageView>();
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample0));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample1));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample2));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample3));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample4));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample5));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample6));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample7));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample8));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample9));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample10));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample11));
+		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample12));
 	}
 
+	private void showPresentSelection(int currIndex)
+	{
+		samples.get(currIndex).setScaleX(0.8f);
+		samples.get(currIndex).setScaleY(0.8f);
+		
+		/**
+		 * If is not the first time to select filter,
+		 * and if previous selected filter is not current selected filter,
+		 * then scale the previous filter to original size.
+		 */
+		if (previousSelection != -1 && previousSelection != currIndex)
+		{
+			samples.get(previousSelection).setScaleX(1.0f);
+			samples.get(previousSelection).setScaleY(1.0f);
+			previousSelection = currIndex;
+		}
+	}
+	
 	public void onClickEffectButton(View view)
 	{
-		filterCache.applyFilterByTag(view.getTag().toString(), imageView);
+		filterCache.applyFilterByTag(view.getTag().toString());
+		showPresentSelection(Integer.parseInt(view.getTag().toString()));
 	}
 	
 	private void setupDialogActionBar()

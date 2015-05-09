@@ -31,14 +31,18 @@ public class FilterPreviewCache
 	private HashMap<String, String> filterCache;
 	private List<IImageFilter> avaliableFilters;
 	private Bitmap target;
+	private ImageView imageview;
 	
 	/**
 	 * Filter preview class.
 	 * @param target the bitmap which you want to apply filter to.
 	 */
-	public FilterPreviewCache(Bitmap target)
+	public FilterPreviewCache(Bitmap target, ImageView imageview)
 	{
+		this.imageview = imageview;
 		this.target = target;
+		this.imageview.setImageBitmap(target);
+		
 		avaliableFilters = new ArrayList<IImageFilter>();
 		filterCache = new HashMap<String, String>();
 		loadFilters();
@@ -49,8 +53,15 @@ public class FilterPreviewCache
 	 * @param tag the filter's tag.
 	 * @param imageview the imageview which will show the filter result.
 	 */
-	synchronized public void applyFilterByTag(String tag, ImageView imageview)
+	synchronized public void applyFilterByTag(String tag)
 	{
+		//Zero tag means apply no filters. Just show the original bitmap.
+		if (tag.equals("0"))
+		{
+			imageview.setImageBitmap(target);
+			return;
+		}
+		
 		if (filterCache.containsKey(tag))
 		{
 			BitmapFactory.Options options = new BitmapFactory.Options();
