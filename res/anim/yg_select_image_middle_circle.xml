@@ -9,7 +9,6 @@
         android:startOffset="200"
         android:toAlpha="1" />
 
-
     <scale
         android:duration="300"
         android:fromXScale="3"

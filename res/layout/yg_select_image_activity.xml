@@ -26,7 +26,7 @@
                 android:id="@+id/camera_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_device_access_camera" />
+                android:src="@drawable/yg_select_image_camera_icon" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:id="@+id/gallery_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_content_picture" />
+                android:src="@drawable/yg_select_image_gallery_icon" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,7 +71,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/circle_step" >
+        android:background="@drawable/yg_select_image_middle_circle" >
 
         <TextView
             android:layout_width="wrap_content"

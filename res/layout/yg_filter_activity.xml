@@ -30,6 +30,6 @@
         android:id="@+id/yg_filter_samples"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/yg_filter_innerlayout"
-        layout="@layout/holder_filters" />
+        layout="@layout/yg_filter_holder" />
 
 </RelativeLayout>

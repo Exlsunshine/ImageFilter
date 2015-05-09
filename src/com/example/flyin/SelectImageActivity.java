@@ -31,23 +31,23 @@ public class SelectImageActivity extends Activity
 	private static final int REQUEST_CAMERA = 0;
 	
 	private Animation animation;
-	private RelativeLayout top_holder;
-	private RelativeLayout bottom_holder;
-	private RelativeLayout step_number;
+	private RelativeLayout topHolder;
+	private RelativeLayout bottomHolder;
+	private RelativeLayout middleCircle;
 	private Uri imageUri;
-	private boolean click_status = true;
-
+	private boolean clickStatus = true;
+	
 	public static Bitmap bitmap = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.yg_select_image_activity);
 
-		top_holder = (RelativeLayout) findViewById(R.id.yg_select_picture_top_holder);
-		bottom_holder = (RelativeLayout) findViewById(R.id.yg_select_picture_bottom_holder);
-		step_number = (RelativeLayout) findViewById(R.id.yg_select_picture_step_number);
+		topHolder = (RelativeLayout) findViewById(R.id.yg_select_picture_top_holder);
+		bottomHolder = (RelativeLayout) findViewById(R.id.yg_select_picture_bottom_holder);
+		middleCircle = (RelativeLayout) findViewById(R.id.yg_select_picture_step_number);
 	
 		setupDialogActionBar();
 	}
@@ -81,16 +81,16 @@ public class SelectImageActivity extends Activity
 	
 	private void flyIn()
 	{
-		click_status = true;
+		clickStatus = true;
 		
-		animation = AnimationUtils.loadAnimation(this, R.anim.holder_top);
-		top_holder.startAnimation(animation);
+		animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_holder_top);
+		topHolder.startAnimation(animation);
 
-		animation = AnimationUtils.loadAnimation(this, R.anim.holder_bottom);
-		bottom_holder.startAnimation(animation);
+		animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_holder_bottom);
+		bottomHolder.startAnimation(animation);
 
-		animation = AnimationUtils.loadAnimation(this, R.anim.step_number);
-		step_number.startAnimation(animation);
+		animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_middle_circle);
+		middleCircle.startAnimation(animation);
 	}
 
 	@Override
@@ -112,18 +112,18 @@ public class SelectImageActivity extends Activity
 	
 	private void flyOut(final String methodName)
 	{
-		if (click_status)
+		if (clickStatus)
 		{
-			click_status = false;
+			clickStatus = false;
 			
-			animation = AnimationUtils.loadAnimation(this, R.anim.step_number_back);
-			step_number.startAnimation(animation);
+			animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_middle_circle_back);
+			middleCircle.startAnimation(animation);
 	
-			animation = AnimationUtils.loadAnimation(this, R.anim.holder_top_back);
-			top_holder.startAnimation(animation);
+			animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_holder_top_back);
+			topHolder.startAnimation(animation);
 	
-			animation = AnimationUtils.loadAnimation(this, R.anim.holder_bottom_back);
-			bottom_holder.startAnimation(animation);
+			animation = AnimationUtils.loadAnimation(this, R.anim.yg_select_image_holder_bottom_back);
+			bottomHolder.startAnimation(animation);
 	
 			animation.setAnimationListener(new AnimationListener() 
 			{

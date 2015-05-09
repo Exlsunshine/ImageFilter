@@ -40,7 +40,7 @@ public class FilterActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_filter);
+		setContentView(R.layout.yg_filter_activity);
 		
 		setupLayouts();
 		setupDialogActionBar();
