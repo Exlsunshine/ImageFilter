@@ -34,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/camera_icon"
                 android:gravity="center"
-                android:text="Take photo"
-                android:textColor="#ffffff"
+                android:text="相机"
+                android:textColor="#1E90FF"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/gallery_icon"
                 android:gravity="center"
-                android:text="Choose image"
+                android:text="图册"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
         </RelativeLayout>

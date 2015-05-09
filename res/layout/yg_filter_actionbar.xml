@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/yg_filter_actionbar_title"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -40,6 +40,18 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="滤镜"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+    
+    <TextView
+        android:id="@+id/yg_filter_actionbar_save"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:text="保存"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 

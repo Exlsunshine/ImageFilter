@@ -2,17 +2,15 @@ package com.yg.image.filter.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.flyin.SelectImageActivity;
 import com.example.flyin.R;
 
 public class FilterActivity extends Activity
@@ -27,7 +25,14 @@ public class FilterActivity extends Activity
 		setContentView(R.layout.activity_filter);
 		
 		imageView = (ImageView)findViewById(R.id.yg_filter_img);
-		filterCache = new FilterPreviewCache(SelectImageActivity.bitmap);
+		
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inPurgeable = true;
+		opt.inInputShareable = true;
+		opt.inSampleSize = 1;
+		filterCache = new FilterPreviewCache(BitmapFactory.decodeResource(getResources(), R.drawable.portrait, opt));
+		
+		//filterCache = new FilterPreviewCache(SelectImageActivity.bitmap);
 		
 		setupDialogActionBar();
 	}

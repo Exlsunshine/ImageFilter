@@ -147,7 +147,9 @@ public class SelectImageActivity extends Activity
 	@SuppressWarnings("unused")
 	private void displayGallery()
 	{
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && !Environment.getExternalStorageState().equals(Environment.MEDIA_CHECKING)) 
+		Intent intent = new Intent(SelectImageActivity.this, FilterActivity.class);
+		startActivity(intent);
+		/*if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && !Environment.getExternalStorageState().equals(Environment.MEDIA_CHECKING)) 
 		{
 			Intent intent = new Intent();
 			intent.setType("image/jpeg");
@@ -156,7 +158,7 @@ public class SelectImageActivity extends Activity
 		} 
 		else 
 			Toast.makeText(getApplicationContext(), "Error: your SD-Card is not available.", Toast.LENGTH_SHORT).show();
-	}
+	*/}
 	
 	@SuppressWarnings("unused")
 	private void displayCamera() 
