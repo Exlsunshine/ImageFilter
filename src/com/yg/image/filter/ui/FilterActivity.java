@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.flyin.R;
+import com.example.flyin.SelectImageActivity;
 
 public class FilterActivity extends Activity
 {
@@ -45,13 +45,13 @@ public class FilterActivity extends Activity
 		setupLayouts();
 		setupDialogActionBar();
 		
-		BitmapFactory.Options opt = new BitmapFactory.Options();
+		/*BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
 		opt.inSampleSize = 1;
 		filterCache = new FilterPreviewCache(BitmapFactory.decodeResource(getResources(), R.drawable.portrait, opt), imageView);
-		
-		//filterCache = new FilterPreviewCache(SelectImageActivity.bitmap, imageView);
+		*/
+		filterCache = new FilterPreviewCache(SelectImageActivity.bitmap, imageView);
 	}
 	
 	private void setupLayouts()
