@@ -172,8 +172,8 @@ public class SelectImageActivity extends Activity
 	private Uri getOutputMediaFile()
 	{
 		ContentValues values = new ContentValues();
-		values.put(MediaStore.Images.Media.TITLE, "Camera Pro");
-		values.put(MediaStore.Images.Media.DESCRIPTION, "www.appsroid.org");
+		values.put(MediaStore.Images.Media.TITLE, "title");
+		values.put(MediaStore.Images.Media.DESCRIPTION, "description");
 		return getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 	}
 	
@@ -239,8 +239,8 @@ public class SelectImageActivity extends Activity
         // aspectX aspectY 是宽高的比例  
         intent.putExtra("aspectX", 1);  
         intent.putExtra("aspectY", 1);  
-        intent.putExtra("outputX", 300); 
-        intent.putExtra("outputY", 300);  
+        intent.putExtra("outputX", 600); 
+        intent.putExtra("outputY", 600);  
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, IMAGE_URI);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());

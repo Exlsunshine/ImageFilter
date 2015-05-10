@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.yg.image.filter.filters.BlockPrintFilter;
 import com.yg.image.filter.filters.ColorQuantizeFilter;
@@ -32,21 +34,30 @@ public class FilterPreviewCache
 	private List<IImageFilter> avaliableFilters;
 	private Bitmap target;
 	private ImageView imageview;
+	private Context context;
 	
 	/**
 	 * Filter preview class.
 	 * @param target the bitmap which you want to apply filter to.
 	 */
-	public FilterPreviewCache(Bitmap target, ImageView imageview)
+	public FilterPreviewCache(Bitmap target, ImageView imageview, Context context)
 	{
 		this.imageview = imageview;
 		this.target = target;
+		this.context = context;
 		this.imageview.setImageBitmap(target);
 		
 		avaliableFilters = new ArrayList<IImageFilter>();
 		filterCache = new HashMap<String, String>();
 		loadFilters();
+		//preProcess();
 	}
+	
+	/*private void preProcess()
+	{
+		for (int i = 2; i <= 12; i++)
+			processImage(String.valueOf(i), true);
+	}*/
 	
 	/**
 	 * Apply specific filter, and show the filter result on imageview.
@@ -72,9 +83,19 @@ public class FilterPreviewCache
 		}
 		else
 		{
-			IImageFilter filter = avaliableFilters.get(Integer.parseInt(tag) - 1);
-			new ProcessImageTask(filter, target, tag, filterCache, imageview).execute();
+			Toast.makeText(context, "´¦ÀíÖÐ...", Toast.LENGTH_LONG).show();
+			processImage(tag, false);
 		}
+	}
+	
+	private void processImage(String tag, boolean isPreProcess)
+	{
+		IImageFilter filter = avaliableFilters.get(Integer.parseInt(tag) - 1);
+		
+		if (isPreProcess)
+			new ProcessImageTask(filter, target, tag, filterCache, null).execute();
+		else
+			new ProcessImageTask(filter, target, tag, filterCache, imageview).execute();
 	}
 	
 	/**

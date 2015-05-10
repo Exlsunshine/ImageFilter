@@ -83,7 +83,9 @@ public class ProcessImageTask extends AsyncTask<Void, Void, Bitmap>
 		{
 			super.onPostExecute(result);
 			filterCache.put(tag, retriveSaveBmpPath(result));
-			imageview.setImageBitmap(result);
+			
+			if (imageview != null)
+				imageview.setImageBitmap(result);
 		}
 	}
 	

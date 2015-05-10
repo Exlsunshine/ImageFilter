@@ -35,6 +35,7 @@ public class FilterActivity extends Activity
 	 * @see #samples
 	 */
 	private int previousSelection = 0;
+	private int currentSelection = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -51,7 +52,7 @@ public class FilterActivity extends Activity
 		opt.inSampleSize = 1;
 		filterCache = new FilterPreviewCache(BitmapFactory.decodeResource(getResources(), R.drawable.portrait, opt), imageView);
 		*/
-		filterCache = new FilterPreviewCache(SelectImageActivity.bitmap, imageView);
+		filterCache = new FilterPreviewCache(SelectImageActivity.bitmap, imageView, FilterActivity.this);
 	}
 	
 	private void setupLayouts()
@@ -74,28 +75,29 @@ public class FilterActivity extends Activity
 		samples.add((ImageView) findViewById(R.id.yg_holder_filter_sample12));
 	}
 
-	private void showPresentSelection(int currIndex)
+	private void showCurrentSelection(int currentSelection)
 	{
-		samples.get(currIndex).setScaleX(0.8f);
-		samples.get(currIndex).setScaleY(0.8f);
+		samples.get(currentSelection).setScaleX(0.8f);
+		samples.get(currentSelection).setScaleY(0.8f);
 		
 		/**
-		 * If is not the first time to select filter,
-		 * and if previous selected filter is not current selected filter,
+		 * If previous selected filter is not current selected filter(the initial condition),
 		 * then scale the previous filter to original size.
 		 */
-		if (previousSelection != -1 && previousSelection != currIndex)
+		if (previousSelection != currentSelection)
 		{
 			samples.get(previousSelection).setScaleX(1.0f);
 			samples.get(previousSelection).setScaleY(1.0f);
-			previousSelection = currIndex;
+			previousSelection = currentSelection;
 		}
 	}
 	
 	public void onClickEffectButton(View view)
 	{
 		filterCache.applyFilterByTag(view.getTag().toString());
-		showPresentSelection(Integer.parseInt(view.getTag().toString()));
+		currentSelection = Integer.parseInt(view.getTag().toString());
+		
+		showCurrentSelection(currentSelection);
 	}
 	
 	private void setupDialogActionBar()
