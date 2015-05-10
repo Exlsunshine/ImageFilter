@@ -1,6 +1,8 @@
 package com.yg.image.filter.ui;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -53,7 +56,32 @@ public class FilterPreviewCache
 		avaliableFilters = new ArrayList<IImageFilter>();
 		filterCache = new HashMap<String, String>();
 		loadFilters();
+		saveTragetBmp(target);
 		//preProcess();
+	}
+	
+	private void saveTragetBmp(Bitmap bmp)
+	{
+		String imagePath = Environment.getExternalStorageDirectory() + "/JMMSR/filters/" +
+				System.currentTimeMillis() + ".JPG";
+		
+		File imgFile = new File(imagePath);
+		imgFile.getParentFile().mkdirs();
+		
+		if (!imgFile.exists())
+		{
+			try
+			{
+				imgFile.createNewFile();
+				FileOutputStream out = new FileOutputStream(imagePath);
+				bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		filterCache.put("0", imagePath);
 	}
 	
 	/*private void preProcess()
