@@ -1,6 +1,8 @@
 package com.example.flyin;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 import com.yg.image.filter.ui.FilterActivity;
@@ -29,6 +31,8 @@ public class SelectImageActivity extends Activity
 {
 	//private static final String DEBUG_TAG = "SelectImageActivity______";
 	public static final String RESULT_IMAGE_PATH = "IMAGE_PATH";
+	public static final String FILTER_ENABLE = "FILTER_ENABLE";
+	
 	
 	private static final int REQUEST_CAMERA = 0;
 	private static final int REQUEST_GALLERY = 1;
@@ -40,6 +44,7 @@ public class SelectImageActivity extends Activity
 	private RelativeLayout middleCircle;
 	private Uri imageUri;
 	private boolean clickStatus = true;
+	private boolean filterEnabled = false;
 	
 	public static Bitmap bitmap = null;
 	
@@ -48,7 +53,9 @@ public class SelectImageActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.yg_select_image_activity);
-
+		
+		filterEnabled = getIntent().getBooleanExtra(FILTER_ENABLE, false);
+		
 		topHolder = (RelativeLayout) findViewById(R.id.yg_select_picture_top_holder);
 		bottomHolder = (RelativeLayout) findViewById(R.id.yg_select_picture_bottom_holder);
 		middleCircle = (RelativeLayout) findViewById(R.id.yg_select_picture_step_number);
@@ -216,8 +223,34 @@ public class SelectImageActivity extends Activity
 			{
 				bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), IMAGE_URI);
 
-				Intent it = new Intent(SelectImageActivity.this, FilterActivity.class);
-				startActivityForResult(it, REQUEST_FILTER);
+				if (filterEnabled)
+				{
+					Intent it = new Intent(SelectImageActivity.this, FilterActivity.class);
+					startActivityForResult(it, REQUEST_FILTER);
+				}
+				else
+				{
+					String imagePath = Environment.getExternalStorageDirectory() + "/JMMSR/filters/" +
+							System.currentTimeMillis() + ".JPG";
+					
+					File imgFile = new File(imagePath);
+					imgFile.getParentFile().mkdirs();
+					
+					if (!imgFile.exists())
+					{
+						try
+						{
+							imgFile.createNewFile();
+							FileOutputStream out = new FileOutputStream(imagePath);
+							bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+							out.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					returnResult(imagePath);
+				}
 			} 
 			catch (Exception e) 
 			{
@@ -225,15 +258,15 @@ public class SelectImageActivity extends Activity
 			}
 		}
 		else if (requestCode == REQUEST_FILTER && resultCode == RESULT_OK)
-		{
-			String result = data.getStringExtra(FilterActivity.RESULT_IMAGE_PATH);
-			Toast.makeText(SelectImageActivity.this, result, Toast.LENGTH_SHORT).show();
-
-			Intent intent = SelectImageActivity.this.getIntent();
-			intent.putExtra(RESULT_IMAGE_PATH, result);
-			SelectImageActivity.this.setResult(RESULT_OK, intent);
-			SelectImageActivity.this.finish();
-		}
+			returnResult(data.getStringExtra(FilterActivity.RESULT_IMAGE_PATH));
+	}
+	
+	private void returnResult(String result)
+	{
+		Intent intent = SelectImageActivity.this.getIntent();
+		intent.putExtra(RESULT_IMAGE_PATH, result);
+		SelectImageActivity.this.setResult(RESULT_OK, intent);
+		SelectImageActivity.this.finish();
 	}
 	
 	private void displayPhotoActivity() 

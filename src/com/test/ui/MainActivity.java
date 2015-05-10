@@ -32,6 +32,7 @@ public class MainActivity extends Activity
 			public void onClick(View v)
 			{
 				Intent intent = new Intent(MainActivity.this, SelectImageActivity.class);
+				intent.putExtra(SelectImageActivity.FILTER_ENABLE, true);
 				startActivityForResult(intent, 34);
 			}
 		});
