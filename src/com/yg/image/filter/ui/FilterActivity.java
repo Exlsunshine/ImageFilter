@@ -20,7 +20,7 @@ import com.example.flyin.SelectImageActivity;
 public class FilterActivity extends Activity
 {
 	//private static final String DEBUG_TAG = "FilterActivity______";
-	
+	public static final String RESULT_IMAGE_PATH = "IMAGE_PATH";
 	/**
 	 * Preview image.
 	 */
@@ -130,7 +130,7 @@ public class FilterActivity extends Activity
 				filterCache.clearCacheExcept(String.valueOf(currentSelection));
 				
 				Intent intent = FilterActivity.this.getIntent();
-				intent.putExtra("IMAGE_PATH", filterCache.getFilterBmpPath(String.valueOf(currentSelection)));
+				intent.putExtra(RESULT_IMAGE_PATH, filterCache.getFilterBmpPath(String.valueOf(currentSelection)));
 				FilterActivity.this.setResult(RESULT_OK, intent);
 				FilterActivity.this.finish();
 			}

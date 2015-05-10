@@ -44,7 +44,7 @@ public class MainActivity extends Activity
 	
 		if (requestCode == 34 && resultCode == RESULT_OK)
 		{
-			String result = data.getStringExtra("IMAGE_PATH");
+			String result = data.getStringExtra(SelectImageActivity.RESULT_IMAGE_PATH);
 			iv.setImageBitmap(BitmapFactory.decodeFile(result));
 			
 			tv.setText(result);

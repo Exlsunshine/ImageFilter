@@ -28,9 +28,11 @@ import android.widget.Toast;
 public class SelectImageActivity extends Activity
 {
 	//private static final String DEBUG_TAG = "SelectImageActivity______";
+	public static final String RESULT_IMAGE_PATH = "IMAGE_PATH";
 	
-	private static final int REQUEST_GALLERY = 1;
 	private static final int REQUEST_CAMERA = 0;
+	private static final int REQUEST_GALLERY = 1;
+	private static final int REQUEST_FILTER = 12;
 	
 	private Animation animation;
 	private RelativeLayout topHolder;
@@ -215,20 +217,20 @@ public class SelectImageActivity extends Activity
 				bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), IMAGE_URI);
 
 				Intent it = new Intent(SelectImageActivity.this, FilterActivity.class);
-				startActivityForResult(it, 12);
+				startActivityForResult(it, REQUEST_FILTER);
 			} 
 			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
 		}
-		else if (requestCode == 12 && resultCode == RESULT_OK)
+		else if (requestCode == REQUEST_FILTER && resultCode == RESULT_OK)
 		{
-			String result = data.getStringExtra("IMAGE_PATH");
+			String result = data.getStringExtra(FilterActivity.RESULT_IMAGE_PATH);
 			Toast.makeText(SelectImageActivity.this, result, Toast.LENGTH_SHORT).show();
 
 			Intent intent = SelectImageActivity.this.getIntent();
-			intent.putExtra("IMAGE_PATH", result);
+			intent.putExtra(RESULT_IMAGE_PATH, result);
 			SelectImageActivity.this.setResult(RESULT_OK, intent);
 			SelectImageActivity.this.finish();
 		}
