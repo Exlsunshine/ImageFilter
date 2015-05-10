@@ -1,5 +1,6 @@
 package com.yg.image.filter.ui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import com.yg.image.filter.filters.ZoomBlurFilter;
 
 public class FilterPreviewCache
 {
+	private static final String DEBUG_TAG = "FilterPreviewCache______";
 	/**
 	 * key   represents the filter name<br>
 	 * value represents the path of the image which has been applied with the filter.
@@ -107,6 +110,35 @@ public class FilterPreviewCache
 	public String getFilterBmpPath(String tag)
 	{
 		return filterCache.get(tag);
+	}
+	
+	
+	public void clearCacheExcept(final String tag)
+	{
+		Thread td = new Thread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				if (!filterCache.containsKey(tag))
+				{
+					Log.e(DEBUG_TAG, "Filter cache does not containts tag: " + tag);
+					return;
+				}
+				
+				for (String key : filterCache.keySet())
+				{
+					if (!key.equals(tag))
+					{
+						File file = new File(filterCache.get(key));
+						boolean deleted = file.delete();
+						Log.i(DEBUG_TAG, "Delete filter cache status:" + deleted + ". (" + key + ")");
+						filterCache.remove(key);
+					}
+				}
+			}
+		});
+		td.start();
 	}
 	
 	private void loadFilters() 
