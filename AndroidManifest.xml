@@ -18,14 +18,19 @@
         <activity
             android:name="com.example.flyin.SelectImageActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.yg.image.filter.ui.FilterActivity"
             android:label="@string/title_activity_filter" >
+        </activity>
+        <activity
+            android:name="com.test.ui.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

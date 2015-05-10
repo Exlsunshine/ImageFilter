@@ -44,7 +44,7 @@
         android:textSize="18sp" />
     
     <TextView
-        android:id="@+id/yg_filter_actionbar_save"
+        android:id="@+id/yg_filter_actionbar_next"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
