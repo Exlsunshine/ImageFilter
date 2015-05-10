@@ -133,7 +133,6 @@ public class FilterPreviewCache
 						File file = new File(filterCache.get(key));
 						boolean deleted = file.delete();
 						Log.i(DEBUG_TAG, "Delete filter cache status:" + deleted + ". (" + key + ")");
-						filterCache.remove(key);
 					}
 				}
 			}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,12 +12,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.flyin.R;
 import com.example.flyin.SelectImageActivity;
 
 public class FilterActivity extends Activity
 {
+	//private static final String DEBUG_TAG = "FilterActivity______";
+	
 	/**
 	 * Preview image.
 	 */
@@ -113,6 +117,21 @@ public class FilterActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				FilterActivity.this.finish();
+			}
+		});
+		
+		TextView next = (TextView)findViewById(R.id.yg_filter_actionbar_next);
+		next.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				filterCache.clearCacheExcept(String.valueOf(currentSelection));
+				
+				Intent intent = FilterActivity.this.getIntent();
+				intent.putExtra("IMAGE_PATH", filterCache.getFilterBmpPath(String.valueOf(currentSelection)));
+				FilterActivity.this.setResult(RESULT_OK, intent);
 				FilterActivity.this.finish();
 			}
 		});
